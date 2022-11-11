@@ -278,4 +278,4 @@ def update_table(active_tab,log,n_clicks):
 
 if __name__=='__main__':
 
-    app.run_server(host= '0.0.0.0',debug=False, port=8000)
+    app.run_server(debug=False)
