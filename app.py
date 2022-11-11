@@ -115,19 +115,16 @@ tab2 = dbc.Card([
                         dcc.Checklist(id='use-filter-schedule', options=[
                                       {'label': 'Use HSC filter availability', 'value': 1}], value=[1])
                     ])
-
                 ])
                 ])
 ],style={'height':'15rem'}
 )
 
-
-tab3 = dbc.Card([
-    dbc.CardBody([
-                dbc.Row(id='summary-tab')
-                ])
-],style={'height':'15rem'}
-)
+tab3 = dbc.Card([dbc.CardBody([
+                    dbc.Row(id='summary-tab')
+                    ])
+            ],style={'height':'15rem'}
+            )           
 
 app.layout = html.Div([
     html.Br(),
@@ -140,8 +137,7 @@ app.layout = html.Div([
                       dbc.Tab(tab2, label='Options',tab_id='2'),
                       dbc.Tab(tab3, label='Summary',tab_id='3'),
                       ])
-
-        ], width={'size': 6, 'offset': 0}),
+        ], width={'size': 6}),
         dbc.Col([
             html.Br(),
             html.H5('Y-Axis'),
@@ -164,7 +160,7 @@ app.layout = html.Div([
                          value=app.pgm_select,
                          multi=True
                          ),
-        ], width={'size': 6, 'offset': 0}),
+        ], width={'size': 6}),
     ], className="mx-5"),
     dbc.Card([dbc.CardBody([html.P(id='log')])]),
     html.Br(),
@@ -236,8 +232,6 @@ def update(n_clicks, display, groupby, pgms, timewindow_obs, use_filter_schedule
     app.plotly_fig = fct.make_fig(app.plot_obj, display, groupby,
                               app.pgm_select, timewindow_obs, use_filter_schedule)
 
-    
-
     return app.plotly_fig,  app.pgms, app.pgm_select, app.log
 
 @app.callback(
@@ -255,7 +249,6 @@ def summary_tab(log,n_clicks):
     active_tab = '3'
 
     return content,active_tab
-
 
 @app.callback(
     Output('datatable','children'),

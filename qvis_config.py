@@ -55,4 +55,5 @@ key_dic = {
     "target": "target_name"
 }
 
+# options for max number of OBs/program in Query
 maxOBquery_arr = [10, 100, 300, 9999]

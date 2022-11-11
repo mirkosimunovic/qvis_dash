@@ -95,7 +95,6 @@ def get_summary_info(call, plot_obj):
 
     return layout
 
-
 def get_table(df, virtualization=True, height='500px', lineHeight='20px', sort_action='native', minwidth='90px', maxwidth='90px', tooltip_duration=None):
 
     table = dash_table.DataTable(
@@ -124,7 +123,6 @@ def get_table(df, virtualization=True, height='500px', lineHeight='20px', sort_a
     )
 
     return table
-
 
 def make_log(call, plot_obj):
 
