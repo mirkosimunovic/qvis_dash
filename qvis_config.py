@@ -1,6 +1,6 @@
 import os
 
-###################### HSC Queue Config
+#-------------------- HSC Queue Config ---------------------
 
 #  The key must match 'inscfg_filter' in database ('nb' matches all 'nb*')
 filters_dict = {
@@ -27,18 +27,20 @@ transp_options = ['0.7','0.4','0.1','0.0']
 
 
 
-###################  Spreadsheet files PATH
+#------------------  Spreadsheet files PATH -------------------
 assets_path = '../assets/'
 
 progfile_path = os.path.join(assets_path,'programs.xlsx')
 allprogfile_path = assets_path # location of ALL individual program spreadhseet files
 qdbfile_path = os.path.join(assets_path,'qdb.yml')
 schedpath_text = os.path.join(assets_path,'schedule.xlsx')
-database_pickle = os.path.join(assets_path,'database.pickle')
+
+# create database file in qvis_dash working directory
+database_pickle = os.path.join(os.getcwd(),'database.pickle')
 
 
 
-##################  App config
+#-------------------- App config ------------------------------
 available_yaxis = ["OBs", "program", "number", "time sum", "completion"]
 available_group = ['program', 'filter', 'grade', 'completion',
                    'seeing', 'airmass', 'transp', 'moon', 'moon_sep', 'target']
