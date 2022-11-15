@@ -7,7 +7,6 @@ import qvis_plot
 import qvis_database
 
 from argparse import ArgumentParser
-import logging
 import os
 from ginga.misc import log
 
