@@ -43,15 +43,6 @@ current_semester = path_data['current_semester']
 database_path = os.path.join(path_data['database_path'],current_semester+'_database.pickle')
 
 
-# progfile_path = os.path.join(assets_path,'programs.xlsx')
-# allprogfile_path = assets_path # location of ALL individual program spreadhseet files
-# qdbfile_path = os.path.join(assets_path,'qdb.yml')
-# schedpath_text = os.path.join(assets_path,'schedule.xlsx')
-# # create database file in qvis_dash working directory
-# database_pickle = os.path.join(os.getcwd(),'database.pickle')
-
-
-
 #-------------------- App config ------------------------------
 available_yaxis = ["OBs", "program", "number", "time sum", "completion"]
 available_group = ['program', 'filter', 'grade', 'completion',
