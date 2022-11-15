@@ -1,18 +1,15 @@
 from qplan import q_db, q_query
 from qplan.entity import StaticTarget
-from ginga.misc.log import get_logger
-
 import traceback
 import os
 import pandas as pd
 from datetime import datetime, timedelta
-
 import qvis_config as cfg
 
 
 
 class Call:
-    def __init__(self, grade, seeing, transp, filters, sdate, edate, maxOBquery, timewindow_obs):
+    def __init__(self, grade, seeing, transp, filters, sdate, edate, maxOBquery, timewindow_obs,logger):
 
         self.grade = grade
         self.seeing = seeing
@@ -32,6 +29,7 @@ class Call:
         self.maxOBquery = int(maxOBquery)
         self.timewindow_obs = timewindow_obs
         self.skipped_pgm = []
+        self.logger = logger
 
         try:
             self.connect()
@@ -45,20 +43,19 @@ class Call:
                 self.df.envcfg_lower_time_limit, self.df.envcfg_upper_time_limit)]
 
         except Exception:
+            self.logger.exception("Exception occurred")
             traceback.print_exc()
 
     def connect(self):
-
-        # create null logger
-        logger = get_logger("example1", log_stderr=False)
         # config file for queue db access
         q_conf_file = os.path.join(os.path.abspath('.'), self.qdbfile)
 
         # create handle to queue database (be sure it is running at the chosen address)
-        self.qdb = q_db.QueueDatabase(logger)
+        self.qdb = q_db.QueueDatabase(self.logger)
         try:
             self.qdb.read_config(q_conf_file)
         except Exception:
+            self.logger.exception("Exception occurred")
             traceback.print_exc()
         self.qdb.connect()
 
@@ -76,6 +73,7 @@ class Call:
             active_pgms = list(df.proposal)
             self.pgms = [self.qq.get_program(prog) for prog in active_pgms]
         except Exception:
+            self.logger.exception("Exception occurred")
             traceback.print_exc()
             return None
 
@@ -139,6 +137,7 @@ class Call:
                 df1 = df1.loc[df1.Code.notna()]
                 pgm.spsheet_obs = df1.Code.values
             except Exception:
+                self.logger.exception("Exception occurred")
                 traceback.print_exc()
                 nofiles.append(pgm.proposal)
                 pgm.spsheet_obs = None

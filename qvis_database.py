@@ -17,9 +17,10 @@ gray_moon_limit = 0.77   # maximum moon illumination fraction for 'gray' time
 
 class DataBase:
 
-    def __init__(self, call):
+    def __init__(self, call,logger):
 
-        self.database_path = cfg.database_pickle
+        self.logger = logger
+        self.database_path = cfg.database_path
         self.load_database()
         self.call = call
         self.schedpath_text = cfg.schedpath_text
@@ -35,6 +36,7 @@ class DataBase:
             database = pickle.load(f)
             f.close()
         except Exception:
+            self.logger.exception("Exception occurred")
             traceback.print_exc()
             database = {}
 
@@ -66,6 +68,7 @@ class DataBase:
         try:
             df = pd.read_excel(self.schedpath_text, engine='openpyxl')
         except Exception:
+            self.logger.exception("Exception occurred")
             df = None
             return df
         # drop the rows where ALL elements are missing

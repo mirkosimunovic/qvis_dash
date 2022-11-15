@@ -1,29 +1,62 @@
 from dash import dcc, html, dash_table
 import dash_bootstrap_components as dbc
+import logging
 
 import qplan_caller
 import qvis_plot
 import qvis_database
 
+from argparse import ArgumentParser
+import logging
+import os
+from ginga.misc import log
+
+
+
+
+def get_logger():
+
+    app_description = 'HSC Queue Vis Dash'
+    argprs = ArgumentParser(description=app_description)
+    log.addlogopts(argprs)
+    (options, args) = argprs.parse_known_args([])
+
+    # Environment variable LOGHOME on Gen2 machines is /home/gen2/Logs
+    options.logfile = os.path.join(
+        os.environ.get('LOGHOME', '/tmp'), 'qvis_dash.log')
+    options.loglevel = logging.DEBUG  # or logging.INFO
+
+    logger = log.get_logger(name='qvis_dash', options=options)
+    return logger
+
+logger = get_logger()
+
+
 def create_call(grade, seeing, transp, filters, sdate, edate, maxOBquery, timewindow_obs):
 
+    logger.info("Creating the Call object")
     call = qplan_caller.Call(grade, seeing, transp, filters, sdate, edate,
-                 maxOBquery, timewindow_obs)
+                 maxOBquery, timewindow_obs,logger)
 
     return call
 
 def create_database(call):
 
-    db = qvis_database.DataBase(call)
+    logger.info("Creating the DataBase object")
+    db = qvis_database.DataBase(call,logger)
     return db
 
 
 def make_plot_obj(df, sdate, edate, edate_user, db):
+
+    logger.info("Creating the Plot object")
     plot = qvis_plot.Plot(df, sdate, edate, edate_user, db)
     return plot
 
 
 def make_fig(plot_obj, display, groupby, pgms, timewindow_obs, use_filter_schedule):
+
+    logger.info("Calling Plot functions in Plot object")
 
     if plot_obj.nights_list == []:    # return empty figure if no queue nights in period
         return []
@@ -57,6 +90,7 @@ def make_fig(plot_obj, display, groupby, pgms, timewindow_obs, use_filter_schedu
 
 def get_summary_info(call, plot_obj):
 
+    logger.info("Creating the summary Tab")
     plotly_fig = plot_obj.fill_plot_completion(horizontal=True)
     plotly_fig.update_layout(
         height=240,
@@ -126,6 +160,7 @@ def get_table(df, virtualization=True, height='500px', lineHeight='20px', sort_a
 
 def make_log(call, plot_obj):
 
+    logger.info("Creating the log widget in dashboard")
     Nquery = plot_obj.df.shape[0]
     Nobservable = plot_obj.longdf_user.name.unique().shape[0]
     queue_nights = len(plot_obj.nights_list) > 0
