@@ -40,7 +40,7 @@ schedpath_text = path_data['schedpath_text']
 
 # create database file in qvis_dash working directory
 current_semester = path_data['current_semester']
-database_path = os.path.join(path_data['database_path'],current_semester+'_database.pickle')
+database_path = os.path.join(path_data['database_path'],'database_'+current_semester+'.pickle')
 
 
 #-------------------- App config ------------------------------
