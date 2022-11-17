@@ -31,7 +31,7 @@ transp_options = ['0.7','0.4','0.1','0.0']
 #------------------  Spreadsheet files PATH -------------------
 
 with open('qvis_config.yaml') as f:
-    path_data = yaml.load(f,Loader=yaml.FullLoader)
+    path_data = yaml.load(f,Loader=yaml.SafeLoader) 
 
 progfile_path = path_data['progfile_path']
 allprogfile_path = path_data['allprogfile_path']
