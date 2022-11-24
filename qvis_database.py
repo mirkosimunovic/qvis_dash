@@ -183,8 +183,8 @@ class night_window:
                 observable = True
 
             self.targ_observable.append(observable)
-            print("  ", self.start.strftime("%m-%d-%Y....."),
-                  str(i+1).rjust(4), "OBs done", end='\r')
+            # print("  ", self.start.strftime("%m-%d-%Y....."),
+            #       str(i+1).rjust(4), "OBs done", end='\r')
 
     def sky_ok(self, info, moon_sep, moon):
         if moon == 'dark' and self.dark_time(info, moon_sep):
