@@ -271,4 +271,4 @@ def update_table(active_tab,log,n_clicks):
 
 if __name__=='__main__':
 
-    app.run_server(debug=False)
+    app.run_server(port=cfg.yaml_data['port'],host=cfg.yaml_data['host'],debug=False)

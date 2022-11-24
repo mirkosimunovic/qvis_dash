@@ -31,16 +31,16 @@ transp_options = ['0.7','0.4','0.1','0.0']
 #------------------  Spreadsheet files PATH -------------------
 
 with open('qvis_config.yaml') as f:
-    path_data = yaml.load(f,Loader=yaml.SafeLoader) 
+    yaml_data = yaml.load(f,Loader=yaml.SafeLoader) 
 
-progfile_path = path_data['progfile_path']
-allprogfile_path = path_data['allprogfile_path']
-qdbfile_path = path_data['qdbfile_path']
-schedpath_text = path_data['schedpath_text']
+progfile_path = yaml_data['progfile_path']
+allprogfile_path = yaml_data['allprogfile_path']
+qdbfile_path = yaml_data['qdbfile_path']
+schedpath_text = yaml_data['schedpath_text']
 
 # create database file in qvis_dash working directory
-current_semester = path_data['current_semester']
-database_path = os.path.join(path_data['database_path'],'database_'+current_semester+'.pickle')
+current_semester = yaml_data['current_semester']
+database_path = os.path.join(yaml_data['database_path'],'database_'+current_semester+'.pickle')
 
 
 #-------------------- App config ------------------------------

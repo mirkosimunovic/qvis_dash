@@ -6,3 +6,6 @@ allprogfile_path : '../../assets/'           # path to all spreadsheet files for
 qdbfile_path: '../../assets/qdb.yml'         # location of the qdb.yml file
 schedpath_text: '../../assets/schedule.xlsx' # location of the 'Schedule.xlsx' spreadsheet file
 database_path: './'      # location where database pickle file will be stored (set to current working directory?)
+
+host : 'g2s5'
+port : 5050
