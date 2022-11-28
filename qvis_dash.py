@@ -226,11 +226,12 @@ def update(n_clicks, display, groupby, pgms, timewindow_obs, use_filter_schedule
 
     if callback_context.triggered_id == 'pgm-dropdown':
         app.pgm_select = pgms
-
-    app.log = fct.make_log(app.call,app.plot_obj)
     
     app.plotly_fig = fct.make_fig(app.plot_obj, display, groupby,
                               app.pgm_select, timewindow_obs, use_filter_schedule)
+
+    app.log = fct.make_log(app.call,app.plot_obj)
+
 
     return app.plotly_fig,  app.pgms, app.pgm_select, app.log
 
@@ -272,3 +273,4 @@ def update_table(active_tab,log,n_clicks):
 if __name__=='__main__':
 
     app.run_server(port=cfg.yaml_data['port'],host=cfg.yaml_data['host'],debug=False)
+    
