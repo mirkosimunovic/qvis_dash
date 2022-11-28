@@ -338,7 +338,7 @@ class Plot:
         df.sort_values(by=['grade', 'program'], ascending=True, inplace=True)
 
         bardata = df.groupby(
-            ['program', 'grade', 'completion_rate'], as_index=False, sort=False).mean()
+            ['program', 'grade'], as_index=False, sort=False)['completion_rate'].mean()
         bardata['perc_frac'] = bardata['completion_rate'].div(100)
 
         if horizontal:
